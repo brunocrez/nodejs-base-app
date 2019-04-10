@@ -14,6 +14,9 @@ class FileController {
 
         await box.save();
 
+        // as ações feitas na box em questão serão refletidas para usuários conectados nessa box por dipositivos diferentes em real time
+        req.io.sockets.in(box._id).emit('file', file);
+
         return res.json(file);
     }
 }
